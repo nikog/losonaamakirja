@@ -4,6 +4,7 @@ namespace Losofacebook\Service;
 use Doctrine\DBAL\Connection;
 use Losofacebook\Person;
 use DateTime;
+use Memcached;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 
@@ -12,10 +13,16 @@ use Doctrine\DBAL\Query\QueryBuilder;
  */
 class PersonService extends AbstractService
 {
+    /**
+     *
+     * @var Memcached
+     */
+    private $memcached;
 
-    public function __construct(Connection $conn)
+    public function __construct(Connection $conn, Memcached $memcached)
     {
         parent::__construct($conn, 'person');
+        $this->memcached = $memcached;
     }
 
 
@@ -47,9 +54,14 @@ class PersonService extends AbstractService
     public function findFriends($id)
     {
         $friends = [];
+        
+        /*
         foreach ($this->findFriendIds($id) as $friendId) {
             $friends[] = $this->findById($friendId, false);
         }
+        */
+        
+        $friends = $this->findFriendsNew($id);
         return $friends;
     }
 
@@ -63,6 +75,9 @@ class PersonService extends AbstractService
         $now = new DateTime();
 
         $person = $this->findByUsername($personId, true);
+        
+        var_dump($person);
+        die();
 
         $params['id'] = $this->findFriendIds($person->getId());
         if (isset($params['birthday'])) {
@@ -73,10 +88,36 @@ class PersonService extends AbstractService
 
         return $this->findBy($params, ['orderBy' => ['last_name ASC', 'first_name ASC']], false);
     }
+    
+    public function findFriendsNew($id, $birthday = false)
+    {
+        $query = "SELECT person.* FROM person, friendship WHERE (source_id = ? and id = target_id) or (target_id = ? and id = source_id)";
+        
+        $friends = $this->conn->fetchAll(
+            $query,
+            [$id, $id]
+        );
+        
+        $ret = array_map(function($data) {
+            return Person::create($data);
+        }, $friends);
+        
+        return $ret;
+    }
 
-
+    /**
+     * 
+     * @param int $id
+     * @return array
+     */
     public function findFriendIds($id)
     {
+        $cacheId = "friend_ids_{$id}";
+        
+        if ($ids = $this->memcached->get($cacheId)) {
+            return $ids;
+        }
+        
         $myAdded = $this->conn->fetchAll(
             "SELECT target_id FROM friendship WHERE source_id = ?",
             [$id]
@@ -97,7 +138,9 @@ class PersonService extends AbstractService
             return $result;
         }, []);
 
-        return array_unique(array_merge($myAdded, $meAdded));
+        $ret = array_unique(array_merge($myAdded, $meAdded));
+        $this->memcached->set($cacheId, $ret, 600);
+        return $ret;
     }
 
     /**

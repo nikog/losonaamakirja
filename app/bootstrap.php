@@ -16,6 +16,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Silex\Provider\SessionServiceProvider;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Memcached;
 
 $app = new Silex\Application();
 
@@ -41,7 +42,7 @@ $app->register(new DoctrineServiceProvider(), array(
         'port' => 3306,
         'dbname' => 'losofacebook',
         'user' => 'root',
-        'password' => 'g04753m135',
+        'password' => 'userpassu',
         'charset' => 'utf8',
     ),
 ));
@@ -58,12 +59,18 @@ $app->register(
 
 // Services
 
+$app['memcached'] = $app->share(function (Application $app) {
+    $m = new Memcached();
+    $m->addServer('localhost', 11211);
+    return $m;
+});
+
 $app['imageService'] = $app->share(function (Application $app) {
     return new ImageService($app['db'], realpath(__DIR__ . '/data/images'));
 });
 
 $app['personService'] = $app->share(function (Application $app) {
-    return new PersonService($app['db']);
+    return new PersonService($app['db'], $app['memcached']);
 });
 
 $app['postService'] = $app->share(function (Application $app) {
@@ -93,7 +100,7 @@ $app->get('/api/person', function(Application $app, Request $request) {
         }
     }
 
-    $persons = $personService->findBy($params, false);
+    $persons = $personService->findBy($params, [], false);
 
     return new JsonResponse(
         $persons
