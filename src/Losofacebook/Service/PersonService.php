@@ -75,9 +75,6 @@ class PersonService extends AbstractService
         $now = new DateTime();
 
         $person = $this->findByUsername($personId, true);
-        
-        var_dump($person);
-        die();
 
         $params['id'] = $this->findFriendIds($person->getId());
         if (isset($params['birthday'])) {
@@ -89,7 +86,7 @@ class PersonService extends AbstractService
         return $this->findBy($params, ['orderBy' => ['last_name ASC', 'first_name ASC']], false);
     }
     
-    public function findFriendsNew($id, $birthday = false)
+    public function findFriendsNew($id)
     {
         $query = "SELECT person.* FROM person, friendship WHERE (source_id = ? and id = target_id) or (target_id = ? and id = source_id)";
         
@@ -140,6 +137,7 @@ class PersonService extends AbstractService
 
         $ret = array_unique(array_merge($myAdded, $meAdded));
         $this->memcached->set($cacheId, $ret, 600);
+        
         return $ret;
     }
 

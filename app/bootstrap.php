@@ -191,7 +191,13 @@ $app->get('/api/company', function(Application $app, Request $request) {
     $companyService = $app['companyService'];
 
     return new JsonResponse(
-        $companyService->findBy([], ['orderBy' => $request->query->get('orderBy', 'name ASC')])
+        $companyService->findBy([], 
+            [
+                'orderBy' => $request->query->get('orderBy', 'name ASC'),
+                'page' => $request->query->get('page', '1'),
+                'limit' => $request->query->get('limit', '9'),
+            ]
+        )
     );
 
 });
