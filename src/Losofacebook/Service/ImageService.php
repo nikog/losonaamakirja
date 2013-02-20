@@ -90,11 +90,23 @@ class ImageService extends AbstractService
     {
         $img = new Imagick($this->basePath . '/' . $id);
         $thumb = clone $img;
-
-        $thumb->cropThumbnailimage(500, 500);
+        
         $thumb->setImageCompression(self::COMPRESSION_TYPE);
         $thumb->setImageCompressionQuality(90);
+        
+        $thumb->stripimage();
+
+        $thumb->cropThumbnailimage(161, 161);
         $thumb->writeImage($this->basePath . '/' . $id . '-thumb');
+        
+        $thumb->cropThumbnailimage(75, 75);
+        $thumb->writeImage($this->basePath . '/' . $id . '-tinyplus');
+        
+        $thumb->cropThumbnailimage(50, 50);
+        $thumb->writeImage($this->basePath . '/' . $id . '-tiny');
+        
+        $thumb->cropThumbnailimage(20, 20);
+        $thumb->writeImage($this->basePath . '/' . $id . '-mini');
     }
 
     public function getImageResponse($id, $version = null)
