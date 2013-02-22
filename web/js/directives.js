@@ -76,7 +76,6 @@ angular.module('losofacebook.directives', [])
                 };
 
                 scope.postComment = function(post, comment) {
-
                     var comment = new Comment({
                         'postId': post.id,
                         'content': comment,
@@ -89,10 +88,34 @@ angular.module('losofacebook.directives', [])
                 }
 
                 scope.$watch('person', function(person) {
-                    if (person.id) {
-                        scope.posts = Post.query({ 'person': person.id });
+                    if (person && person.id) {
+                        Post.query({ 'person': person.id }, function(posts) {
+                            scope.posts = posts;
+                        });
                     }
                 }, true);
+                
+                scope.fetchPosts = function() {
+                    Post.query(
+                    {
+                        'person': scope.person.id,
+                        'page' : ++scope.page,
+                        'limit' : scope.limit
+                    }, function(posts) {
+                        console.log(posts);
+
+                        scope.posts = scope.posts.concat(posts);
+                    });
+                }
+                
+                scope.limit = 1;
+                scope.page = 0;
+                
+                $(window).on('scroll', function() {
+                    if($(window).scrollTop() + $(window).height() >= $(document).height()) {
+                        scope.fetchPosts();
+                    } 
+                });
 
             }
         };

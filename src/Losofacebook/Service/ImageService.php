@@ -15,6 +15,25 @@ use Memcached;
 class ImageService extends AbstractService
 {
     const COMPRESSION_TYPE = Imagick::COMPRESSION_JPEG;
+    
+    private $versions = [
+        [
+            "name" => "thumb",
+            "dimensions" => 153
+        ],
+        [
+            "name" => "tinyplus",
+            "dimensions" => 75
+        ],
+        [
+            "name" => "tiny",
+            "dimensions" => 50
+        ],
+        [
+            "name" => "mini",
+            "dimensions" => 20
+        ],
+    ];
 
     /**
      * @param $basePath
@@ -89,24 +108,25 @@ class ImageService extends AbstractService
     public function createVersions($id)
     {
         $img = new Imagick($this->basePath . '/' . $id);
-        $thumb = clone $img;
         
-        $thumb->setImageCompression(self::COMPRESSION_TYPE);
-        $thumb->setImageCompressionQuality(90);
         
-        $thumb->stripimage();
-
-        $thumb->cropThumbnailimage(161, 161);
-        $thumb->writeImage($this->basePath . '/' . $id . '-thumb');
+        $img->setImageCompression(self::COMPRESSION_TYPE);
+        $img->setImageCompressionQuality(90);
         
-        $thumb->cropThumbnailimage(75, 75);
-        $thumb->writeImage($this->basePath . '/' . $id . '-tinyplus');
+        $img->stripimage();
         
-        $thumb->cropThumbnailimage(50, 50);
-        $thumb->writeImage($this->basePath . '/' . $id . '-tiny');
-        
-        $thumb->cropThumbnailimage(20, 20);
-        $thumb->writeImage($this->basePath . '/' . $id . '-mini');
+        foreach($this->versions as $version) {
+            $d = $version['dimensions'];
+            $filename = $id . '-' . $version['name'];
+            $target = $this->basePath . '/' . $filename;
+            $link = realpath($this->basePath . '/../../../web/image/') . '/' . $filename . '.jpg';
+            
+            $thumb = clone $img;
+            $thumb->cropthumbnailimage($d, $d);
+            $thumb->writeimage($target);
+            
+            symlink($target, $link);
+        }
     }
 
     public function getImageResponse($id, $version = null)

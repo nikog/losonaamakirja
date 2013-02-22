@@ -88,7 +88,7 @@ class PersonService extends AbstractService
 
         $person = $this->findByUsername($personId, true);
 
-        $params['id'] = $this->findFriendIds($person->getId());
+        $params['id'] = $this->findFriendIdsNew($person->getId());
         if (isset($params['birthday'])) {
             $params['MONTH(birthday)'] = $now->format('m');
             $params['DAY(birthday)'] = $now->format('d');
@@ -98,18 +98,25 @@ class PersonService extends AbstractService
         return $this->findBy($params, ['orderBy' => ['last_name ASC', 'first_name ASC']], false);
     }
     
-    public function findFriendsNew($id)
+    public function findFriendIdsNew($id)
     {
-        $query = "SELECT person.* FROM person, friendship WHERE (source_id = ? and id = target_id) or (target_id = ? and id = source_id)";
+        $query = "SELECT person.id FROM person, friendship WHERE (source_id = ? and id = target_id) or (target_id = ? and id = source_id)";
         
-        $friends = $this->conn->fetchAll(
+        $ret = $this->conn->fetchAll(
             $query,
             [$id, $id]
         );
         
+        $ret = array_reduce($ret, function ($result, $row) {
+            $result[] = $row['id'];
+            return $result;
+        }, []);
+        
+        /*
+        
         $ret = array_map(function($data) {
             return Person::create($data);
-        }, $friends);
+        }, $friends);*/
         
         return $ret;
     }

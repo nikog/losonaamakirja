@@ -5,7 +5,6 @@
     <title>Losofacebook</title>
     <link rel="icon" type="image/png" href="/losofacebook-favicon.png"  />
     
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
 
@@ -13,6 +12,36 @@
     <link rel="stylesheet" type="text/css" href="/css/losofacebook-main.css" />
     <!--<link rel="stylesheet" type="text/css" href="/css/losofacebook-friends.css" />
     <link rel="stylesheet" type="text/css" href="/css/losofacebook-posts.css" />-->
+<!--
+    <script src="/js/yepnope.1.5.4-min.js"></script>
+     <script>
+        yepnope([{
+            load: 
+            [
+                "//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js", 
+                "//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js",
+                "//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular-resource.min.js",
+                "//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular-sanitize.min.js",
+                "//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular-cookies.min.js",
+            ],
+            callback: function (url, result, key) {
+                console.log("External javascript loaded");
+            }
+        }, {
+            load: 
+            [
+                "/js/app.js",
+                "/js/services.js",
+                "/js/controllers.js",
+                "/js/filters.js",
+                "/js/directives.js"
+            ],
+            callback: function (url, result, key) {
+                console.log("Local javascript loaded");
+                angular.bootstrap(document, ['losofacebook']);
+            }
+        }]);
+    </script>-->
 </head>
 <body>
     <!--<script src="/js/jquery-1.9.1.js"></script>-->
@@ -77,6 +106,8 @@
     <div id="main" class="container">
         <div ng-view></div>
     </div>
+    
+   
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     

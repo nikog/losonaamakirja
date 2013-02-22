@@ -28,23 +28,23 @@ function IndexCtrl($scope, Person) {
     */
 }
 
-function PersonCtrl($scope, $routeParams, Person, Post, Friend) {
+function PersonCtrl($scope, $routeParams, Post, Person, Friend) {
 
     $scope.posts = [];
-   
-    $scope.person = Person.get({
+
+    Person.get({
         username: $routeParams.username
-        }, function(person) {
-        $scope.backgroundImage = 'http://place.manatee.lc/' + person.backgroundId + '/1170/293.jpg';
-        $scope.profileImage = '/api/image/' + person.primaryImageId + '/thumb';
-
-        $scope.birthdayx = Friend.query({
-            'username': person.username, 
-            'birthday': true
-        });
-
+    }, function(person) {
+        Friend.get({
+            username: person.username, 
+            birthday: true
+        }, function(birthdayx) {
+            $scope.person = person;
+            $scope.birthdayx = birthdayx;
+            $scope.backgroundImage = 'http://place.manatee.lc/' + person.backgroundId + '/1170/293.jpg';
+            $scope.profileImage = '/image/' + person.primaryImageId + '-thumb.jpg';  
+        }); 
     });
-
 }
 
 function CompaniesCtrl($scope, Company) {

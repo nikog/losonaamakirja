@@ -155,12 +155,20 @@ $app->get('/api/person/{username}/friend', function(Application $app, Request $r
 });
 
 
-$app->get('/api/post/{personId}', function(Application $app, $personId) {
+$app->get('/api/post/{personId}', function(Application $app, Request $request, $personId) {
 
     /** @var PostService $postService */
     $postService = $app['postService'];
+    
+    $params = $request->query->all();
 
-    $posts = $postService->findByPersonId($personId);
+    $posts = $postService->findByPersonId(
+            $personId,
+            [
+                'page' => $request->query->get('page', '1'),
+                'limit' => $request->query->get('limit', '1'),
+            ]
+            );
 
     return new JsonResponse(
         $posts

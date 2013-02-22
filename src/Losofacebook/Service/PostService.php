@@ -108,14 +108,15 @@ class PostService extends AbstractService
      *
      * @param $path
      */
-    public function findByPersonId($personId)
+    public function findByPersonId($personId, $options)
     {
+        $c = $options['page'] * $options['limit'];
         return $this->tryCache(
-            "post_person_{$personId}",
-            function () use ($personId) {
+            "post_person_{$personId}_{$c}",
+            function () use ($personId, $options) {
 
                 $data = $this->conn->fetchAll(
-                    "SELECT * FROM post WHERE person_id = ? ORDER BY date_created DESC", [$personId]
+                    "SELECT * FROM post WHERE person_id = ? ORDER BY date_created DESC LIMIT {$options['page']}, {$options['limit']}", [$personId]
                 );
 
                 $posts = [];

@@ -11,7 +11,7 @@ body .navbar .container #losofacebook-logo.brand span#losonaamakirja {
 }
 .navbar-inverse .navbar-inner {
   background-image: none;
-  background-color: blue !important;
+  background-color: #466CC1 !important;
 }
 .navbar-inverse .navbar-inner a {
   color: white !important;
@@ -31,6 +31,10 @@ body .navbar .container #losofacebook-logo.brand span#losonaamakirja {
 
 
 /* Friends */
+.friends {
+    max-height: 200px;
+    overflow: scroll;
+}
 .friends > ul {
     display: block;
     margin: 0;
