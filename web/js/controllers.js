@@ -27,6 +27,7 @@ function IndexCtrl($scope, Person) {
     };
     */
 }
+IndexCtrl.$inject = ['$scope', 'Person'];
 
 function PersonCtrl($scope, $routeParams, Post, Person, Friend) {
 
@@ -41,11 +42,12 @@ function PersonCtrl($scope, $routeParams, Post, Person, Friend) {
         }, function(birthdayx) {
             $scope.person = person;
             $scope.birthdayx = birthdayx;
-            $scope.backgroundImage = 'http://place.manatee.lc/' + person.backgroundId + '/1170/293.jpg';
+            $scope.backgroundImage = 'http://place.manatee.lc/' + person.backgroundId + '/940/235.jpg';
             $scope.profileImage = '/image/' + person.primaryImageId + '-thumb.jpg';  
         }); 
     });
 }
+PersonCtrl.$inject = ['$scope', '$routeParams', 'Post', 'Person', 'Friend'];
 
 function CompaniesCtrl($scope, Company) {
     
@@ -69,6 +71,7 @@ function CompaniesCtrl($scope, Company) {
     
     addInfiniteScroll(fetchCompanies);
 }
+CompaniesCtrl.$inject = ['$scope', 'Company'];
 
 function CompanyCtrl($scope, $routeParams, Company, Person) {
 
@@ -97,6 +100,7 @@ function CompanyCtrl($scope, $routeParams, Company, Person) {
         addInfiniteScroll(fetchPersons);
     });
 }
+CompanyCtrl.$inject = ['$scope', '$routeParams', 'Company', 'Person'];
 
 function addInfiniteScroll(callback) {
     $(window).on('scroll', function() {

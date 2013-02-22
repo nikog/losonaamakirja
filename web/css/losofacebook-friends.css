@@ -1,4 +1,8 @@
 /* Friends */
+.friends {
+    overflow: scroll;
+    height: 200px;
+}
 .friends > ul {
     display: block;
     margin: 0;

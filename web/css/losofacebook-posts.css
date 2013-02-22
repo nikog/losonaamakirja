@@ -36,3 +36,7 @@ img.mini {
     width: 20px;
     height: 20px;
 }
+.comment img {
+    height: 50px;
+    width: 50px;
+}

@@ -3,74 +3,38 @@
 <head>
     <meta charset="utf-8">
     <title>Losofacebook</title>
-    <link rel="icon" type="image/png" href="/losofacebook-favicon.png"  />
-    
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
-
-    <!--<link rel="stylesheet/less" type="text/css" href="/css/losofacebook-main.less" />-->
-    <link rel="stylesheet" type="text/css" href="/css/losofacebook-main.css" />
-    <!--<link rel="stylesheet" type="text/css" href="/css/losofacebook-friends.css" />
-    <link rel="stylesheet" type="text/css" href="/css/losofacebook-posts.css" />-->
-<!--
-    <script src="/js/yepnope.1.5.4-min.js"></script>
-     <script>
-        yepnope([{
-            load: 
-            [
-                "//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js", 
-                "//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js",
-                "//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular-resource.min.js",
-                "//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular-sanitize.min.js",
-                "//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular-cookies.min.js",
-            ],
-            callback: function (url, result, key) {
-                console.log("External javascript loaded");
-            }
-        }, {
-            load: 
-            [
-                "/js/app.js",
-                "/js/services.js",
-                "/js/controllers.js",
-                "/js/filters.js",
-                "/js/directives.js"
-            ],
-            callback: function (url, result, key) {
-                console.log("Local javascript loaded");
-                angular.bootstrap(document, ['losofacebook']);
-            }
-        }]);
-    </script>-->
+    <link rel="icon" type="image/png" href="//static.losofacebook.tunk.io/losofacebook-favicon.png"  />
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//static.losofacebook.tunk.io/css/losofacebook-main.min.css" />
+    <script async src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        /*AngularJS v1.0.0rc1 (c) 2010-2012 AngularJS http://angularjs.org License: MIT*/
+        'use strict';(function(i){function d(c,a,e){return c[a]||(c[a]=e())}return d(d(i,"angular",Object),"module",function(){var c={};return function(a,e,f){e&&c.hasOwnProperty(a)&&(c[a]=null);return d(c,a,function(){function b(a,b,d){return function(){c[d||"push"]([a,b,arguments]);return g}}if(!e)throw Error("No module: "+a);var c=[],d=[],h=b("$injector","invoke"),g={_invokeQueue:c,_runBlocks:d,requires:e,name:a,provider:b("$provide","provider"),factory:b("$provide","factory"),service:b("$provide","service"),
+                            value:b("$provide","value"),constant:b("$provide","constant","unshift"),filter:b("$filterProvider","register"),directive:b("$compileProvider","directive"),config:h,run:function(a){d.push(a);return this}};f&&h(f);return g})}})})(window);
+        /*!
+         * $script.js v1.3
+         * https://github.com/ded/script.js
+         * Copyright: @ded & @fat - Dustin Diaz, Jacob Thornton 2011
+         * Follow our software http://twitter.com/dedfat
+         * License: MIT
+         */
+            !function(a,b,c){function t(a,c){var e=b.createElement("script"),f=j;e.onload=e.onerror=e[o]=function(){e[m]&&!/^c|loade/.test(e[m])||f||(e.onload=e[o]=null,f=1,c())},e.async=1,e.src=a,d.insertBefore(e,d.firstChild)}function q(a,b){p(a,function(a){return!b(a)})}var d=b.getElementsByTagName("head")[0],e={},f={},g={},h={},i="string",j=!1,k="push",l="DOMContentLoaded",m="readyState",n="addEventListener",o="onreadystatechange",p=function(a,b){for(var c=0,d=a.length;c<d;++c)if(!b(a[c]))return j;return 1};!b[m]&&b[n]&&(b[n](l,function r(){b.removeEventListener(l,r,j),b[m]="complete"},j),b[m]="loading");var s=function(a,b,d){function o(){if(!--m){e[l]=1,j&&j();for(var a in g)p(a.split("|"),n)&&!q(g[a],n)&&(g[a]=[])}}function n(a){return a.call?a():e[a]}a=a[k]?a:[a];var i=b&&b.call,j=i?b:d,l=i?a.join(""):b,m=a.length;c(function(){q(a,function(a){h[a]?(l&&(f[l]=1),o()):(h[a]=1,l&&(f[l]=1),t(s.path?s.path+a+".js":a,o))})},0);return s};s.get=t,s.ready=function(a,b,c){a=a[k]?a:[a];var d=[];!q(a,function(a){e[a]||d[k](a)})&&p(a,function(a){return e[a]})?b():!function(a){g[a]=g[a]||[],g[a][k](b),c&&c(d)}(a.join("|"));return s};var u=a.$script;s.noConflict=function(){a.$script=u;return this},typeof module!="undefined"&&module.exports?module.exports=s:a.$script=s}(this,document,setTimeout)
+        $script([
+            '//static.losofacebook.tunk.io/lib/angular/angular.min2.js',
+            '//static.losofacebook.tunk.io/lib/angular/angular-resource.min.js',
+            '//static.losofacebook.tunk.io/lib/angular/angular-cookies.min.js',
+            '//static.losofacebook.tunk.io/lib/angular/angular-sanitize.min.js',
+            '//static.losofacebook.tunk.io/js/app.js',
+            '//static.losofacebook.tunk.io/js/services.js',
+            '//static.losofacebook.tunk.io/js/controllers.js',
+            '//static.losofacebook.tunk.io/js/filters.js',
+            '//static.losofacebook.tunk.io/js/directives.js'
+        ], function() {
+            angular.bootstrap(document, ['losofacebook']);
+        });
+    </script>
 </head>
 <body>
-    <!--<script src="/js/jquery-1.9.1.js"></script>-->
-    
-    
-     <!--
-    <script src="/lib/angular/angular.js"></script>
-    <script src="/lib/angular/angular-resource.js"></script>
-    <script src="/lib/angular/angular-sanitize.js"></script>
-    <script src="/lib/angular/angular-cookies.js"></script>-->
-    
-    
-    
-    <!--
-    <script src="/js/less.min.js"></script>
-    <script src="/js/bootstrap-affix.js"></script>
-    <script src="/js/bootstrap-alert.js"></script>
-    <script src="/js/bootstrap-button.js"></script>
-    <script src="/js/bootstrap-carousel.js"></script>
-    <script src="/js/bootstrap-collapse.js"></script>
-    <script src="/js/bootstrap-dropdown.js"></script>
-    <script src="/js/bootstrap-modal.js"></script>
-    <script src="/js/bootstrap-scrollspy.js"></script>
-    <script src="/js/bootstrap-tab.js"></script>
-    <script src="/js/bootstrap-tooltip.js"></script>
-    <script src="/js/bootstrap-transition.js"></script>
-    <script src="/js/bootstrap-typeahead.js"></script>
-    <script src="/js/jquery-ui-1.10.0.custom.js"></script>-->
-
     <div class="navbar navbar-fixed-top navbar-inverse">
         <div class="navbar-inner">
             <div class="container">
@@ -79,48 +43,27 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-
                 <a id="losofacebook-logo" class="brand" href="/"><span id="losonaamakirja">losofacebook</span></a>
-
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                         <li>
-                            <a href="/"><img src="/img/icon-home.png" alt="Home" style="width: 20px;"></a>
+                            <a href="/"><img width="20" height="20" src="/img/icon-home.resize.png" alt="Home" style="width: 20px;"></a>
                         </li>
                         <li>
-                            <a href="/profile/{{ currentUser.username }}"><img src="/img/icon-user.png" alt="Home" style="width: 20px;"></a>
+                            <a href="/profile/{{ currentUser.username }}"><img width="20" height="20" src="/img/icon-user.resize.png" alt="Home" style="width: 20px;"></a>
                         </li>
                     </ul>
-
                     <ul class="nav pull-right">
                         <li>
-                            <a href="/"><img src="/img/icon-lock.png" alt="Log out" style="width: 30px; margin-top: -15px; margin-bottom: -15px;"></a>
+                            <a href="/"><img width="30" height="29" src="/img/icon-lock.resize.png" alt="Log out" style="width: 30px; margin-top: -15px; margin-bottom: -15px;"></a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-
-
     <div id="main" class="container">
         <div ng-view></div>
-    </div>
-    
-   
-    
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular-resource.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular-sanitize.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular-cookies.min.js"></script>
-    
-    <script src="/js/app.js"></script>
-    <script src="/js/services.js"></script>
-    <script src="/js/controllers.js"></script>
-    <script src="/js/filters.js"></script>
-    <script src="/js/directives.js"></script>
-
+    </div>   
 </body>
 </html>

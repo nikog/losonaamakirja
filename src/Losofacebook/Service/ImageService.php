@@ -19,7 +19,7 @@ class ImageService extends AbstractService
     private $versions = [
         [
             "name" => "thumb",
-            "dimensions" => 153
+            "dimensions" => 126
         ],
         [
             "name" => "tinyplus",
